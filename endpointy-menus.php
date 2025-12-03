@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Endpointy Menus
+ * Plugin Name: EndPointy Menus
  * Description: Exposes WordPress menus via a custom REST API endpoint.
  * Version: 1.1.0
  * Author: Gunjan Jaswal
  * Author URI: https://gunjanjaswal.me
- * Plugin URI: https://github.com/gunjanjaswal/endpointy-menus
+ * Plugin URI: https://github.com/gunjanjaswal/Endpointy-Menus
  * Text Domain: endpointy-menus
  * License: GPL2
  *

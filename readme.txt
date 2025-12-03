@@ -1,4 +1,4 @@
-=== Endpointy Menus ===
+=== EndPointy Menus ===
 Contributors: gunjanjaswal
 Tags: rest api, menus, navigation, headless, json
 Requires at least: 5.0
@@ -12,7 +12,7 @@ Expose WordPress menus via a custom REST API endpoint for headless and external 
 
 == Description ==
 
-Endpointy Menus adds custom REST API routes to expose your WordPress navigation menus as JSON.
+EndPointy Menus adds custom REST API routes to expose your WordPress navigation menus as JSON.
 
 **Base namespace:** `endpointy-menus/v1`
 
@@ -40,7 +40,7 @@ This is useful for headless WordPress setups or any external app that needs to r
 == Installation ==
 
 1. Upload the `endpointy-menus` folder to your `wp-content/plugins` directory.
-2. Activate **Endpointy Menus** from the Plugins screen in WordPress.
+2. Activate **EndPointy Menus** from the Plugins screen in WordPress.
 3. Ensure you have at least one menu configured under **Appearance → Menus**.
 
 == Usage ==
@@ -70,14 +70,14 @@ Use these URLs directly from your front-end application or API client.
 If you find this plugin useful, you can support the developer:
 
 - Website: https://gunjanjaswal.me
-- GitHub: https://github.com/gunjanjaswal/endpointy-menus
+- GitHub: https://github.com/gunjanjaswal/Endpointy-Menus
 - Buy Me a Coffee: https://buymeacoffee.com/gunjanjaswal
 
 == Contributing ==
 
 Contributions, issues, and feature requests are welcome!
-GitHub: https://github.com/gunjanjaswal/endpointy-menus
-Issues: https://github.com/gunjanjaswal/endpointy-menus/issues
+GitHub: https://github.com/gunjanjaswal/Endpointy-Menus
+Issues: https://github.com/gunjanjaswal/Endpointy-Menus/issues
 
 == Changelog ==
 

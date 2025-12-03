@@ -1,4 +1,4 @@
-# Endpointy Menus
+# EndPointy Menus
 
 A WordPress plugin that exposes navigation menus via custom REST API endpoints. Perfect for headless WordPress, decoupled applications, and external integrations.
 
@@ -220,7 +220,7 @@ GPL v2 or later
 **Gunjan Jaswal**
 
 - Website: [https://gunjanjaswal.me](https://gunjanjaswal.me)
-- GitHub: [https://github.com/gunjanjaswal/endpointy-menus](https://github.com/gunjanjaswal/endpointy-menus)
+- GitHub: [https://github.com/gunjanjaswal/Endpointy-Menus](https://github.com/gunjanjaswal/Endpointy-Menus)
 
 ## ☕ Support
 
@@ -230,7 +230,7 @@ If you find this plugin useful, consider supporting the developer:
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/gunjanjaswal/endpointy-menus/issues).
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/gunjanjaswal/Endpointy-Menus/issues).
 
 ## ⭐ Show Your Support
 
