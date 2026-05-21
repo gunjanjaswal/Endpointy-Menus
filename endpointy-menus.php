@@ -26,6 +26,7 @@ class Endpointy_Menus {
     public function __construct() {
         add_action( 'rest_api_init', array( $this, 'register_routes' ) );
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_plugin_action_links' ) );
+        add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ), 10, 2 );
     }
 
     /**
@@ -37,6 +38,20 @@ class Endpointy_Menus {
     public function add_plugin_action_links( $links ) {
         $kofi_link = '<a href="https://ko-fi.com/gunjanjaswal" target="_blank" style="color: #0073aa; font-weight: bold;">Support on Ko-fi</a>';
         array_unshift( $links, $kofi_link );
+        return $links;
+    }
+
+    /**
+     * Add Contact Developer link to plugin row meta on the Plugins screen.
+     *
+     * @param array  $links Existing plugin row meta links.
+     * @param string $file  Plugin file name.
+     * @return array Modified row meta links.
+     */
+    public function add_plugin_row_meta( $links, $file ) {
+        if ( plugin_basename( __FILE__ ) === $file ) {
+            $links[] = '<a href="mailto:hello@gunjanjaswal.me">' . __( 'Contact Developer', 'endpointy-menus' ) . '</a>';
+        }
         return $links;
     }
 
