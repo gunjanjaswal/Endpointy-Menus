@@ -50,6 +50,7 @@ class Endpointy_Menus {
      */
     public function add_plugin_row_meta( $links, $file ) {
         if ( plugin_basename( __FILE__ ) === $file ) {
+            $links[] = '<a href="https://wordpress.org/support/plugin/endpointy-menus/" target="_blank">' . __( 'Plugin Support', 'endpointy-menus' ) . '</a>';
             $links[] = '<a href="mailto:hello@gunjanjaswal.me">' . __( 'Contact Developer', 'endpointy-menus' ) . '</a>';
         }
         return $links;
