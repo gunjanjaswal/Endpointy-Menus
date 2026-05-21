@@ -2,11 +2,11 @@
 Contributors: gunjanjaswal
 Tags: rest api, menus, navigation, headless, json
 Requires at least: 5.0
-Tested up to: 6.9
-Stable tag: 1.1.0
+Tested up to: 7.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://buymeacoffee.com/gunjanjaswal
+Donate link: https://ko-fi.com/gunjanjaswal
 
 Expose WordPress menus via a custom REST API endpoint for headless and external applications.
 
@@ -71,7 +71,7 @@ If you find this plugin useful, you can support the developer:
 
 - Website: https://gunjanjaswal.me
 - GitHub: https://github.com/gunjanjaswal/Endpointy-Menus
-- Buy Me a Coffee: https://buymeacoffee.com/gunjanjaswal
+- Ko-fi: https://ko-fi.com/gunjanjaswal
 
 == Contributing ==
 
@@ -80,6 +80,10 @@ GitHub: https://github.com/gunjanjaswal/Endpointy-Menus
 Issues: https://github.com/gunjanjaswal/Endpointy-Menus/issues
 
 == Changelog ==
+
+= 1.1.1 =
+* Updated "Tested up to" to WordPress 7.0.
+* Updated donation link to Ko-fi (https://ko-fi.com/gunjanjaswal).
 
 = 1.1.0 =
 * Added support for filtering menus by location.

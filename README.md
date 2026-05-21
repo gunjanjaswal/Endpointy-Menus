@@ -226,7 +226,22 @@ GPL v2 or later
 
 If you find this plugin useful, consider supporting the developer:
 
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-yellow?style=for-the-badge&logo=buy-me-a-coffee)](https://buymeacoffee.com/gunjanjaswal)
+[![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/gunjanjaswal)
+
+## 📜 Changelog
+
+### 1.1.1
+- Updated "Tested up to" to WordPress 7.0.
+- Updated donation link to Ko-fi (https://ko-fi.com/gunjanjaswal).
+
+### 1.1.0
+- Added support for filtering menus by location.
+- Added nested menu hierarchy with `nested=true` query parameter.
+- Added `/locations` endpoint to list all menu locations.
+- Added `/locations/<location>` endpoint to get menu by location.
+
+### 1.0.0
+- Initial release.
 
 ## 🤝 Contributing
 

@@ -2,17 +2,19 @@
 /**
  * Plugin Name: EndPointy Menus
  * Description: Exposes WordPress menus via a custom REST API endpoint.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Gunjan Jaswal
  * Author URI: https://gunjanjaswal.me
  * Plugin URI: https://github.com/gunjanjaswal/Endpointy-Menus
  * Text Domain: endpointy-menus
  * License: GPL2
+ * Requires at least: 5.0
+ * Tested up to: 7.0
  *
  * This plugin registers custom REST API routes to expose WordPress menus
  * so they can be consumed by external applications.
  *
- * Support the developer: https://buymeacoffee.com/gunjanjaswal
+ * Support the developer: https://ko-fi.com/gunjanjaswal
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -23,23 +25,18 @@ class Endpointy_Menus {
 
     public function __construct() {
         add_action( 'rest_api_init', array( $this, 'register_routes' ) );
-        add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ), 10, 2 );
+        add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_plugin_action_links' ) );
     }
 
     /**
-     * Add 'Buy me a coffee' link to plugin row meta in plugins list.
+     * Add Ko-fi support link to plugin action links (next to Deactivate).
      *
-     * @param array  $links Plugin row meta links.
-     * @param string $file  Plugin file name.
-     * @return array Modified links.
+     * @param array $links Existing plugin action links.
+     * @return array Modified action links.
      */
-    public function add_plugin_row_meta( $links, $file ) {
-        if ( strpos( $file, 'endpointy-menus.php' ) !== false ) {
-            $new_links = array(
-                'donate' => '<a href="https://buymeacoffee.com/gunjanjaswal" target="_blank">Buy me a coffee</a>',
-            );
-            $links = array_merge( $links, $new_links );
-        }
+    public function add_plugin_action_links( $links ) {
+        $kofi_link = '<a href="https://ko-fi.com/gunjanjaswal" target="_blank" style="color: #0073aa; font-weight: bold;">Support on Ko-fi</a>';
+        array_unshift( $links, $kofi_link );
         return $links;
     }
 
