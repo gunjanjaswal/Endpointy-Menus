@@ -589,7 +589,10 @@ class Endpointy_Menus {
         global $wpdb;
 
         // Transients are stored in the options table; clear ours by prefix.
+        // A direct, prepared query is required to match transients by name prefix;
+        // results are not cached because this only runs on menu/settings changes.
         $like = $wpdb->esc_like( '_transient_' . self::CACHE_PREFIX ) . '%';
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $keys = $wpdb->get_col(
             $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", $like )
         );
