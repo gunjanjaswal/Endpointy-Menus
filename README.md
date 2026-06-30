@@ -5,11 +5,16 @@ A WordPress plugin that exposes navigation menus via custom REST API endpoints. 
 ## 🚀 Features
 
 - ✅ Expose all WordPress menus via REST API
-- ✅ Get menus by ID or location (e.g., `primary`, `footer`)
+- ✅ Get menus by ID, slug, or location (e.g., `primary`, `footer`)
 - ✅ Nested menu hierarchy support with `?nested=true`
+- ✅ Rich item meta with `?meta=true` (description, featured image, excerpt)
+- ✅ Field filtering with `?fields=id,title,url` for lean payloads
 - ✅ List all registered menu locations
+- ✅ Built-in response caching (auto-flushed when menus change)
+- ✅ Admin settings page (Settings → EndPointy Menus)
+- ✅ Optional API-key authentication + CORS allow-list
+- ✅ Developer filter hook (`endpointy_menus_item`)
 - ✅ Clean, structured JSON output
-- ✅ No authentication required (public endpoints)
 - ✅ Lightweight and performant
 
 ## 📦 Installation
@@ -51,6 +56,17 @@ Returns a specific menu and its items.
 **Example:**
 ```
 GET /wp-json/endpointy-menus/v1/menus/2
+```
+
+### Get Single Menu by Slug
+```
+GET /wp-json/endpointy-menus/v1/menus/slug/{slug}
+```
+Returns a specific menu and its items by slug.
+
+**Example:**
+```
+GET /wp-json/endpointy-menus/v1/menus/slug/main-menu
 ```
 
 ### Get All Menu Locations
@@ -126,6 +142,46 @@ GET /wp-json/endpointy-menus/v1/locations/primary?nested=true
 }
 ```
 
+## ⚙️ Query Parameters
+
+All menu endpoints accept these optional parameters (combinable):
+
+| Param | Example | Description |
+|-------|---------|-------------|
+| `nested` | `?nested=true` | Hierarchical tree with `children` arrays |
+| `meta` | `?meta=true` | Adds `description`, `attr_title`, `current`, `featured_image`, `excerpt` |
+| `fields` | `?fields=id,title,url` | Return only the listed item fields (`children` always kept in nested mode) |
+
+```
+GET /wp-json/endpointy-menus/v1/menus/2?nested=true&meta=true&fields=id,title,url,featured_image,children
+```
+
+## 🛡️ Settings, Caching & Auth
+
+A settings page lives at **Settings → EndPointy Menus**:
+
+- **Response caching** — menu responses are cached as transients with a configurable lifetime and automatically flushed whenever a menu is edited or deleted.
+- **API key** — turn on *Require API key* to protect the endpoints. Send the key as an `X-API-Key` header or an `api_key` query parameter:
+  ```bash
+  curl -H "X-API-Key: YOUR_KEY" https://your-site.com/wp-json/endpointy-menus/v1/menus
+  ```
+- **CORS** — add allowed origins (one per line, or `*`) to send `Access-Control-Allow-Origin` headers for browser clients.
+- **Rate limiting** — cap requests per minute per IP (0 = off). Responses include `X-RateLimit-Limit` / `X-RateLimit-Remaining`; over-limit requests get `429` with `Retry-After`.
+- **ETag / Last-Modified** — conditional-request support. Send `If-None-Match` or `If-Modified-Since` and unchanged menus return `304 Not Modified`:
+  ```bash
+  curl -H 'If-None-Match: "<etag>"' https://your-site.com/wp-json/endpointy-menus/v1/menus
+  ```
+
+## 🧩 Developer Hooks
+
+```php
+// Add or modify fields on every menu item.
+add_filter( 'endpointy_menus_item', function ( $data, $item, $meta ) {
+    $data['acf'] = get_fields( $item );
+    return $data;
+}, 10, 3 );
+```
+
 ## 📝 Menu Item Properties
 
 Each menu item includes:
@@ -144,6 +200,11 @@ Each menu item includes:
 | `classes` | array | CSS classes |
 | `xfn` | string | XFN relationship |
 | `children` | array | Child items (only in nested mode) |
+| `description` | string | Item description (only with `meta=true`) |
+| `attr_title` | string | Title attribute (only with `meta=true`) |
+| `current` | bool | Whether the item is the current page (only with `meta=true`) |
+| `featured_image` | string\|null | Featured image URL for post-type items (only with `meta=true`) |
+| `excerpt` | string | Post excerpt for post-type items (only with `meta=true`) |
 
 ## 💡 Usage Examples
 
@@ -229,6 +290,18 @@ If you find this plugin useful, consider supporting the developer:
 [![Support on Ko-fi](https://img.shields.io/badge/Ko--fi-Support-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/gunjanjaswal)
 
 ## 📜 Changelog
+
+### 1.2.0
+- Added admin settings page (Settings → EndPointy Menus).
+- Added response caching with configurable lifetime and auto-flush on menu changes.
+- Added optional API-key authentication and configurable CORS allow-list.
+- Added per-IP rate limiting with `X-RateLimit-*` headers and `429` responses.
+- Added ETag / Last-Modified conditional requests (`304 Not Modified`).
+- Added `/menus/slug/<slug>` endpoint.
+- Added `meta=true` parameter (description, featured image, excerpt, current flag).
+- Added `fields=` parameter for partial responses.
+- Added `endpointy_menus_item` developer filter.
+- Added menu `count` and location `menu_slug` to responses.
 
 ### 1.1.1
 - Updated "Tested up to" to WordPress 7.0.
