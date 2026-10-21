@@ -3,7 +3,7 @@ Contributors: gunjanjaswal
 Tags: rest api, menus, navigation, headless, json
 Requires at least: 5.0
 Tested up to: 7.1
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://ko-fi.com/gunjanjaswal
@@ -43,8 +43,12 @@ EndPointy Menus adds custom REST API routes to expose your WordPress navigation 
 
 - `fields=id,title,url` - Returns only the listed fields per item (children are always kept in nested mode).
   Example: `/wp-json/endpointy-menus/v1/menus/2?fields=id,title,url`
+- `depth=2` - In nested mode, limits how many levels deep the tree goes (0 or omitted = unlimited). Handy when your front end only renders the top couple of levels.
+  Example: `/wp-json/endpointy-menus/v1/menus/2?nested=true&depth=2`
 
-Parameters can be combined, e.g. `?nested=true&meta=true&fields=id,title,url,children`.
+Parameters can be combined, e.g. `?nested=true&meta=true&fields=id,title,url,children&depth=2`.
+
+Every menu in the response also lists the theme `locations` it is assigned to.
 
 **Settings (Settings → EndPointy Menus):**
 
@@ -103,6 +107,10 @@ GitHub: https://github.com/gunjanjaswal/Endpointy-Menus
 Issues: https://github.com/gunjanjaswal/Endpointy-Menus/issues
 
 == Changelog ==
+
+= 1.3.0 =
+* New: a `depth` query parameter for nested menus, so you can fetch just the top levels of a tree when your front end does not need the rest.
+* Every menu response now includes the theme `locations` it is assigned to, on the single-menu endpoints as well as the list.
 
 = 1.2.0 =
 * Added admin settings page under Settings → EndPointy Menus.

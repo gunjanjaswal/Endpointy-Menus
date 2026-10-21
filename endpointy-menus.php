@@ -2,7 +2,7 @@
 /**
  * Plugin Name: EndPointy Menus
  * Description: Exposes WordPress menus via a custom REST API endpoint.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: Gunjan Jaswal
  * Author URI: https://gunjanjaswal.me
  * Plugin URI: https://github.com/gunjanjaswal/Endpointy-Menus
@@ -342,6 +342,10 @@ class Endpointy_Menus {
                 'default'           => '',
                 'sanitize_callback' => 'sanitize_text_field',
             ),
+            'depth' => array(
+                'default'           => 0,
+                'sanitize_callback' => 'absint',
+            ),
         );
     }
 
@@ -549,6 +553,7 @@ class Endpointy_Menus {
             $request->get_param( 'nested' ) ? 1 : 0,
             $request->get_param( 'meta' ) ? 1 : 0,
             (string) $request->get_param( 'fields' ),
+            (int) $request->get_param( 'depth' ),
         );
         return self::CACHE_PREFIX . md5( implode( '|', $parts ) );
     }
@@ -744,11 +749,12 @@ class Endpointy_Menus {
         $menu_items = wp_get_nav_menu_items( $menu->term_id );
 
         $payload = array(
-            'id'    => (int) $menu->term_id,
-            'name'  => $menu->name,
-            'slug'  => $menu->slug,
-            'count' => (int) $menu->count,
-            'items' => $this->prepare_items( $menu_items, $request ),
+            'id'        => (int) $menu->term_id,
+            'name'      => $menu->name,
+            'slug'      => $menu->slug,
+            'count'     => (int) $menu->count,
+            'locations' => $this->menu_locations( $menu->term_id ),
+            'items'     => $this->prepare_items( $menu_items, $request ),
         );
 
         $this->cache_set( $key, $payload );
@@ -766,9 +772,10 @@ class Endpointy_Menus {
         $nested = (bool) $request->get_param( 'nested' );
         $meta   = (bool) $request->get_param( 'meta' );
         $fields = $this->parse_fields( $request->get_param( 'fields' ) );
+        $depth  = (int) $request->get_param( 'depth' );
 
         if ( $nested ) {
-            return $this->build_menu_tree( $items, 0, $meta, $fields );
+            return $this->build_menu_tree( $items, 0, $meta, $fields, $depth );
         }
 
         if ( empty( $items ) ) {
@@ -873,7 +880,7 @@ class Endpointy_Menus {
      * @param array $fields    Field filter map.
      * @return array
      */
-    private function build_menu_tree( $items, $parent_id = 0, $meta = false, $fields = array() ) {
+    private function build_menu_tree( $items, $parent_id = 0, $meta = false, $fields = array(), $depth_limit = 0, $current_depth = 1 ) {
         if ( empty( $items ) ) {
             return array();
         }
@@ -881,13 +888,34 @@ class Endpointy_Menus {
         $tree = array();
         foreach ( $items as $item ) {
             if ( (int) $item->menu_item_parent === $parent_id ) {
-                $node             = $this->format_menu_item( $item, $meta, $fields );
-                $node['children'] = $this->build_menu_tree( $items, (int) $item->ID, $meta, $fields );
-                $tree[]           = $node;
+                $node = $this->format_menu_item( $item, $meta, $fields );
+                if ( 0 === $depth_limit || $current_depth < $depth_limit ) {
+                    $node['children'] = $this->build_menu_tree( $items, (int) $item->ID, $meta, $fields, $depth_limit, $current_depth + 1 );
+                } else {
+                    $node['children'] = array();
+                }
+                $tree[] = $node;
             }
         }
 
         return $tree;
+    }
+
+    /**
+     * Theme locations a menu is currently assigned to.
+     *
+     * @param int $term_id Menu term ID.
+     * @return string[] Location slugs.
+     */
+    private function menu_locations( $term_id ) {
+        $assigned  = get_nav_menu_locations();
+        $locations = array();
+        foreach ( (array) $assigned as $location => $menu_id ) {
+            if ( (int) $menu_id === (int) $term_id ) {
+                $locations[] = $location;
+            }
+        }
+        return $locations;
     }
 }
 
