@@ -2,8 +2,8 @@
 Contributors: gunjanjaswal
 Tags: rest api, menus, navigation, headless, json
 Requires at least: 5.0
-Tested up to: 7.1
-Stable tag: 1.3.0
+Tested up to: 7.1.4
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://ko-fi.com/gunjanjaswal
@@ -107,6 +107,9 @@ GitHub: https://github.com/gunjanjaswal/Endpointy-Menus
 Issues: https://github.com/gunjanjaswal/Endpointy-Menus/issues
 
 == Changelog ==
+
+= 1.3.1 =
+* Tested and confirmed compatible with WordPress 7.1.4.
 
 = 1.3.0 =
 * New: a `depth` query parameter for nested menus, so you can fetch just the top levels of a tree when your front end does not need the rest.
