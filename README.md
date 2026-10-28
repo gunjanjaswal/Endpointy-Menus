@@ -291,17 +291,25 @@ If you find this plugin useful, consider supporting the developer:
 
 ## 📜 Changelog
 
+### 1.3.1
+- Tested and confirmed compatible with WordPress 7.1.4.
+
+### 1.3.0
+- New: a `depth` query parameter for nested menus, so you can fetch just the top levels of a tree when your front end does not need the rest.
+- Every menu response now includes the theme `locations` it is assigned to, on the single-menu endpoints as well as the list.
+
 ### 1.2.0
-- Added admin settings page (Settings → EndPointy Menus).
-- Added response caching with configurable lifetime and auto-flush on menu changes.
-- Added optional API-key authentication and configurable CORS allow-list.
-- Added per-IP rate limiting with `X-RateLimit-*` headers and `429` responses.
-- Added ETag / Last-Modified conditional requests (`304 Not Modified`).
-- Added `/menus/slug/<slug>` endpoint.
-- Added `meta=true` parameter (description, featured image, excerpt, current flag).
-- Added `fields=` parameter for partial responses.
-- Added `endpointy_menus_item` developer filter.
-- Added menu `count` and location `menu_slug` to responses.
+- Added admin settings page under Settings → EndPointy Menus.
+- Added response caching (transients) with configurable lifetime and automatic flush on menu edits.
+- Added optional API-key authentication (X-API-Key header or api_key query param).
+- Added configurable CORS allow-list.
+- Added per-IP rate limiting with X-RateLimit headers and 429 responses.
+- Added ETag / Last-Modified conditional requests (304 Not Modified).
+- Added `/menus/slug/<slug>` endpoint to fetch a menu by slug.
+- Added `meta=true` query parameter for description, featured image, excerpt and current flag.
+- Added `fields=` query parameter to limit returned item fields.
+- Added `endpointy_menus_item` filter for developers.
+- Added menu item `count` to menu payloads and `menu_slug` to locations.
 
 ### 1.1.1
 - Updated "Tested up to" to WordPress 7.0.
