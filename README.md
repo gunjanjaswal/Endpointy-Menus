@@ -291,6 +291,8 @@ If you find this plugin useful, consider supporting the developer:
 
 ## 📜 Changelog
 
+The full changelog lives in [`readme.txt`](readme.txt). Recent releases:
+
 ### 1.3.1
 - Tested and confirmed compatible with WordPress 7.1.4.
 
@@ -320,9 +322,6 @@ If you find this plugin useful, consider supporting the developer:
 - Added nested menu hierarchy with `nested=true` query parameter.
 - Added `/locations` endpoint to list all menu locations.
 - Added `/locations/<location>` endpoint to get menu by location.
-
-### 1.0.0
-- Initial release.
 
 ## 🤝 Contributing
 
